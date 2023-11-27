@@ -1,11 +1,31 @@
-def canPutTile():
+from __future__ import annotations
+from typing import List
+from itertools import chain, repeat, islice
+from azul.interfaces import UsedTilesGiveInterface
+from azul.simple_types import Tile, compress_tile_list, Points
+
+class WallLine:
+    lineUp: WallLine
+    lineDown: WallLine
+    _tileTypes: List[Tile]
+    def __init__(self, lineUp: WallLine, lineDown: WallLine, initialTiles: List[Tile] = list()):
+        self._tileTypes = list()
+        for initTile in initialTiles:
+            if(str(initTile) in _tileTypes):
+                self._tileTypes.append(str(initTile)) #ukladam str v tomto commite
+            self._lineUp = lineUp
+            self.lineDown = lineDown
+        
+    def canPutTile(tyle: Tile) -> bool:
+        if (str(tyle) in self._tileTypes): #ukladat str alebo tile alebo co?
+            return False
+        return True
+
+def getTiles(tyle: Tile) -> None:
     pass
 
-def getTiles(tyle: Tile):
-    pass
-
-def putTile(tyle: Tiles):
+def putTile(tyle: Tiles) -> Points:
     return #points
 
-def state():
+def state() -> str:
     return #stringType
