@@ -1,14 +1,14 @@
 from __future__ import annotations
 from typing import List
 from itertools import chain, repeat, islice
-from azul.interfaces import UsedTilesGiveInterface
-from azul.simple_types import Tile, compress_tile_list, Points
+from interfaces import UsedTilesGiveInterface
+from simple_types import Tile, Points #, compress_tile_list
 
 class WallLine:
     lineUp: WallLine
     lineDown: WallLine
     _tileTypes: List[Tile]
-    def __init__(self, lineUp: WallLine, lineDown: WallLine, initialTiles: List[Tile] = list()):
+    def __init__(self, lineUp: WallLine = None, lineDown: WallLine = None, initialTiles: List[Tile] = list()):
         self._tileTypes = list()
         for initTile in initialTiles:
             if(str(initTile) in _tileTypes):
