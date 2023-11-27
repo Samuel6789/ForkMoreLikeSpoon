@@ -28,6 +28,7 @@ class Tile:
 
     def __str__(self) -> str:
         return self._representation
+    ##prepisat ==
 
 
 STARTING_PLAYER: Tile = Tile("S")

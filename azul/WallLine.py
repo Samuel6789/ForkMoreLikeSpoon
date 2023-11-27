@@ -1,31 +1,28 @@
 from __future__ import annotations
-from typing import List
-from itertools import chain, repeat, islice
+from typing import List, Optional
 from interfaces import UsedTilesGiveInterface
-from simple_types import Tile, Points #, compress_tile_list
+from simple_types import Tile, compress_tile_list, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
     lineUp: WallLine
     lineDown: WallLine
     _tileTypes: List[Tile]
-    def __init__(self, lineUp: WallLine = None, lineDown: WallLine = None, initialTiles: List[Tile] = list()):
-        self._tileTypes = list()
-        for initTile in initialTiles:
-            if(str(initTile) in _tileTypes):
-                self._tileTypes.append(str(initTile)) #ukladam str v tomto commite
-            self._lineUp = lineUp
-            self.lineDown = lineDown
+    _tilesInLine: List[Optional[Tile]]
+    def __init__(self, tileTypesOrder: List[Tile], initialTiles: List[Tile] = [None]*5,
+                 lineUp: WallLine = None, lineDown: WallLine = None):
+        self._tileTypes = tileTypesOrder.copy()
+        self._tilesInLine = initialTiles.copy()
+        self._lineUp = lineUp
+        self.lineDown = lineDown
         
-    def canPutTile(tyle: Tile) -> bool:
-        if (str(tyle) in self._tileTypes): #ukladat str alebo tile alebo co?
-            return False
-        return True
+    def canPutTile(self, tyle: Tile) -> bool:
+        return not (tyle in self._tilesInLine or tyle not in self._tileTypes)
 
-def getTiles(tyle: Tile) -> None:
-    pass
+    def getTiles(self) -> List[Optional[Tile]]:
+        return self._tilesInLine
 
-def putTile(tyle: Tiles) -> Points:
-    return #points
+    def putTile(self, tyle: Tiles) -> Points:
+        return #points
 
-def state() -> str:
-    return #stringType
+    def state(self) -> str:
+        return #stringType
