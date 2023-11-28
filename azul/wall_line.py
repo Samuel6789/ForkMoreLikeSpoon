@@ -47,6 +47,7 @@ class WallLine:
                 break
             verticalPoints += 1
             nextWallLine = nextWallLine.lineUp
+        nextWallLine = lineDown
         for i in range(1, 5):
             if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
                 break
