@@ -39,7 +39,9 @@ class WallLine:
             if(indexing >= 5 or self._tilesInLine[indexing] is None):
                 break
             horizontalPoints += 1
-
+        if(horizontalPoints > 0):
+            horizontalPoints += 1
+            
         verticalPoints: int = 0     #####scoringVertical
         nextWallLine: WallLine = self.lineUp
         for i in range(1, 5):
@@ -53,8 +55,12 @@ class WallLine:
                 break
             verticalPoints += 1
             nextWallLine = nextWallLine.lineDown
-        
-        return Points(1 + horizontalPoints + verticalPoints)
+        if(verticalPoints > 0):
+            verticalPoints += 1
+            
+        if(verticalPoints + horizontalPoints == 0):
+            return Points(1)
+        return Points(horizontalPoints + verticalPoints)
 
     def state(self) -> str:
         tilesInLineNoNone: List[Tile] = [i for i in self._tilesInLine if i is not None]
