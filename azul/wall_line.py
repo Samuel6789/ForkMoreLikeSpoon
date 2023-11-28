@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List, Optional
-from simple_types import Tile, compress_tile_list, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
+from simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
     lineUp: WallLine
@@ -63,6 +63,5 @@ class WallLine:
         return Points(horizontalPoints + verticalPoints)
 
     def state(self) -> str:
-        tilesInLineNoNone: List[Tile] = [i for i in self._tilesInLine if i is not None]
-        #might be better with EMPTY tile, so that it prints empty spaces
-        return compress_tile_list(tilesInLineNoNone)
+        tilesInLineToStr: List[str] = ['-' if t is None else str(t) for t in self._tilesInLine]
+        return "".join(tilesInLineToStr)
