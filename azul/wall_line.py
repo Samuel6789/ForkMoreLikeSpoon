@@ -8,11 +8,11 @@ class WallLine:
     _tileTypes: List[Tile]  #order of patterns
     _tilesInLine: List[Optional[Tile]]  #list of Tile and None for missing pattern tiles
 
-    def __init__(self, tileTypesOrder: List[Tile], initialTiles: List[Tile] = [None]*5,
-                 lineUp: WallLine = None, lineDown: WallLine = None):   #initialTiles for testing only
+    def __init__(self, tileTypesOrder: List[Tile],lineUp: WallLine = None, lineDown: WallLine = None,
+                 initialTiles: List[Tile] = [None]*5):   #initialTiles for testing only
         self._tileTypes = tileTypesOrder.copy()
         self._tilesInLine = initialTiles.copy()
-        self._lineUp = lineUp
+        self.lineUp = lineUp
         self.lineDown = lineDown
         
     def canPutTile(self, tyle: Tile) -> bool:
@@ -22,7 +22,7 @@ class WallLine:
         return self._tilesInLine
 
     def putTile(self, tyle: Tiles) -> Points:
-        if(not canPutTile(tyle)):
+        if(not self.canPutTile(tyle)):
             return Points(0)
         
         indexOfTyle: int = self._tileTypes.index(tyle)
@@ -41,13 +41,13 @@ class WallLine:
             horizontalPoints += 1
 
         verticalPoints: int = 0     #####scoringVertical
-        nextWallLine: WallLine = lineUp
+        nextWallLine: WallLine = self.lineUp
         for i in range(1, 5):
             if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
                 break
             verticalPoints += 1
             nextWallLine = nextWallLine.lineUp
-        nextWallLine = lineDown
+        nextWallLine = self.lineDown
         for i in range(1, 5):
             if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
                 break
@@ -58,4 +58,5 @@ class WallLine:
 
     def state(self) -> str:
         tilesInLineNoNone: List[Tile] = [i for i in self._tilesInLine if i is not None]
+        #might be better with EMPTY tile, so that it prints empty spaces
         return compress_tile_list(tilesInLineNoNone)
