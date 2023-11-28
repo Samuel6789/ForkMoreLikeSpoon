@@ -1,15 +1,15 @@
 from __future__ import annotations
 from typing import List, Optional
-from interfaces import UsedTilesGiveInterface
 from simple_types import Tile, compress_tile_list, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
     lineUp: WallLine
     lineDown: WallLine
-    _tileTypes: List[Tile]
-    _tilesInLine: List[Optional[Tile]]
+    _tileTypes: List[Tile]  #order of patterns
+    _tilesInLine: List[Optional[Tile]]  #list of Tile and None for missing pattern tiles
+
     def __init__(self, tileTypesOrder: List[Tile], initialTiles: List[Tile] = [None]*5,
-                 lineUp: WallLine = None, lineDown: WallLine = None):
+                 lineUp: WallLine = None, lineDown: WallLine = None):   #initialTiles for testing only
         self._tileTypes = tileTypesOrder.copy()
         self._tilesInLine = initialTiles.copy()
         self._lineUp = lineUp
@@ -22,7 +22,38 @@ class WallLine:
         return self._tilesInLine
 
     def putTile(self, tyle: Tiles) -> Points:
-        return #points
+        if(not canPutTile(tyle)):
+            return Points(0)
+        
+        indexOfTyle: int = self._tileTypes.index(tyle)
+        self._tilesInLine[indexOfTyle] = tyle
+        
+        horizontalPoints: int = 0   #####scoring horizontal
+        for offset in range(1, 5):
+            indexing: int = indexOfTyle - offset
+            if(indexing < 0 or self._tilesInLine[indexing] is None):
+                break
+            horizontalPoints += 1
+        for offset in range(1, 5):
+            indexing: int = indexOfTyle + offset
+            if(indexing >= 5 or self._tilesInLine[indexing] is None):
+                break
+            horizontalPoints += 1
+
+        verticalPoints: int = 0     #####scoringVertical
+        nextWallLine: WallLine = lineUp
+        for i in range(1, 5):
+            if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
+                break
+            verticalPoints += 1
+            nextWallLine = nextWallLine.lineUp
+        for i in range(1, 5):
+            if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
+                break
+            verticalPoints += 1
+            nextWallLine = nextWallLine.lineDown
+        
+        return Points(1 + horizontalPoints + verticalPoints)
 
     def state(self) -> str:
         return #stringType
