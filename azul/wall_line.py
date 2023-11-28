@@ -9,11 +9,13 @@ class WallLine:
     _tilesInLine: List[Optional[Tile]]  #list of Tile and None for missing pattern tiles
 
     def __init__(self, tileTypesOrder: List[Tile],lineUp: WallLine = None, lineDown: WallLine = None,
-                 initialTiles: List[Tile] = [None]*5):   #initialTiles for testing only
-        self._tileTypes = tileTypesOrder.copy()
-        self._tilesInLine = initialTiles.copy()
+                 initialTiles: List[Tile] = list()):   #initialTiles for testing only
+        self._tileTypes = tileTypesOrder.copy()     #I assume correct input, no tests
         self.lineUp = lineUp
         self.lineDown = lineDown
+        self._tilesInLine = [None]*len(self._tileTypes)
+        for initTile in initialTiles:
+            self.putTile(initTile)
         
     def canPutTile(self, tyle: Tile) -> bool:
         return not (tyle in self._tilesInLine or tyle not in self._tileTypes)
@@ -26,17 +28,18 @@ class WallLine:
             return Points(0)
         
         indexOfTyle: int = self._tileTypes.index(tyle)
+        lineSize: int = len(self._tileTypes)
         self._tilesInLine[indexOfTyle] = tyle
         
         horizontalPoints: int = 0   #####scoring horizontal
-        for offset in range(1, 5):
+        for offset in range(1, lineSize):
             indexing: int = indexOfTyle - offset
             if(indexing < 0 or self._tilesInLine[indexing] is None):
                 break
             horizontalPoints += 1
-        for offset in range(1, 5):
+        for offset in range(1, lineSize):
             indexing: int = indexOfTyle + offset
-            if(indexing >= 5 or self._tilesInLine[indexing] is None):
+            if(indexing >= lineSize or self._tilesInLine[indexing] is None):
                 break
             horizontalPoints += 1
         if(horizontalPoints > 0):
@@ -44,13 +47,13 @@ class WallLine:
             
         verticalPoints: int = 0     #####scoringVertical
         nextWallLine: WallLine = self.lineUp
-        for i in range(1, 5):
+        for i in range(1, lineSize):
             if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
                 break
             verticalPoints += 1
             nextWallLine = nextWallLine.lineUp
         nextWallLine = self.lineDown
-        for i in range(1, 5):
+        for i in range(1, lineSize):
             if(nextWallLine is None or nextWallLine.getTiles()[indexOfTyle] is None):
                 break
             verticalPoints += 1
