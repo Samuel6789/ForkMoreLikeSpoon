@@ -56,4 +56,5 @@ class WallLine:
         return Points(1 + horizontalPoints + verticalPoints)
 
     def state(self) -> str:
-        return #stringType
+        tilesInLineNoNone: List[Tile] = [i for i in self._tilesInLine if i is not None]
+        return compress_tile_list(tilesInLineNoNone)
