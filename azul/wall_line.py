@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List, Optional
-from simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
+from azul.simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
     lineUp: WallLine
@@ -68,3 +68,5 @@ class WallLine:
     def state(self) -> str:
         tilesInLineToStr: List[str] = ['-' if t is None else str(t) for t in self._tilesInLine]
         return "".join(tilesInLineToStr)
+
+        
