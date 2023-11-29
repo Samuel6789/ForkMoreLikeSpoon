@@ -1,7 +1,7 @@
 from __future__ import annotations
 import unittest
-from Assignment.azul import finalPointsCalculation
-from Assignment.azul.simple_types import *
+from azul import finalPointsCalculation
+from azul.simple_types import *
 
 
 class SpravnostBodovania(unittest.TestCase):
