@@ -3,7 +3,7 @@ from simple_types import Tile, Points
 
 class PatternLine:
     _line = []
-    def __init__(self, index: int) -> None:
+    def __init__(self, index: int, floor_line, used_tiles, wall_line) -> None:
         """0: [None], 1:[None, None], ..., 4:[None, None, None, None, None]"""
         self._line = [None for i in range(index + 1)]
 

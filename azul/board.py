@@ -1,8 +1,8 @@
 from typing import List
-from simple_types import Points, Tile, STARTING_PLAYER
+from simple_types import Points, Tile, STARTING_PLAYER, RED, BLUE, YELLOW, GREEN, BLACK
 from pattern_line import PatternLine
 from floor import Floor
-from interfaces import FinalPointsCalculationInterface, FinishRoundResult
+from interfaces import FinishRoundResult
 from wall_line import WallLine
 # from game import Game
 from game_finished import GameFinished
@@ -12,20 +12,32 @@ from finalPointsCalculation import FinalPointsCalculation
 class Board:
     _points: Points = Points(0)
     _is_first: bool = False        # indicates 
-    _wall = [WallLine([]) for i in range(5)]        # instancie wall line
-    
-    _player_name: str = ""
-    _pattern_line: List[PatternLine] = [PatternLine(i) for i in range(4)]
 
     def __init__(self, used_tiles, player_name: str = "") -> None:
         self._player_name = player_name
         self.used_tiles = used_tiles
         self._floor = Floor([Points(i) for i in [1, 1, 2, 2, 2, 3, 3]], used_tiles)
-    
+
+        # the code below generates wall lines
+        self._wall = []        # instancie wall line
+        patternOrder: List[Tile] = [RED, BLUE, YELLOW, GREEN, BLACK]
+        size = len(patternOrder)
+        for i in range(size):
+            shift: int = (size - i)%size
+            shiftedPatterns = patternOrder[shift:] + patternOrder[:shift]
+            self._wall.append(WallLine(shiftedPatterns))
+        for j in range(size):
+            if(j > 0):
+                self._wall[j].lineUp = self._wall[j - 1]
+            if(j < size - 1):
+                self._wall[j].lineDown = self._wall[j + 1]
+
+        self._pattern_line: List[PatternLine] = [PatternLine(i, self._floor, self.used_tiles, self._wall[i]) for i in range(5)]
+
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
-        # for line in self._pattern_line:
-        #     self._points = Points.sum([line.finishRound(), self._points])
+        for line in self._pattern_line:
+            self._points = Points.sum([line.finishRound(), self._points])
 
         minus_points = self._floor.finish_round()
         self._points = Points.sum([minus_points, self._points])
