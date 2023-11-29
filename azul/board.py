@@ -2,10 +2,11 @@ from typing import List
 from simple_types import Points, Tile, STARTING_PLAYER
 from pattern_line import PatternLine
 from floor import Floor
-from interfaces import FinalPointsCalculationInterface, FinishRoundResult#, UsedTilesGiveInterface
+from interfaces import FinalPointsCalculationInterface, FinishRoundResult
 from wall_line import WallLine
 # from game import Game
-from game_finished import gameFinished
+from game_finished import GameFinished
+from finalPointsCalculation import FinalPointsCalculation
 
 
 class Board:
@@ -19,7 +20,7 @@ class Board:
     def __init__(self, used_tiles, player_name: str = "") -> None:
         self._player_name = player_name
         self.used_tiles = used_tiles
-        self._floor = Floor([Points(i) for i in [1, 1, 2, 2]], used_tiles)
+        self._floor = Floor([Points(i) for i in [1, 1, 2, 2, 2, 3, 3]], used_tiles)
     
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
@@ -29,7 +30,7 @@ class Board:
         minus_points = self._floor.finish_round()
         self._points = Points.sum([minus_points, self._points])
 
-        if gameFinished([wl.getTiles() for wl in self._wall]) == FinishRoundResult.GAME_FINISHED:
+        if GameFinished.verify([wl.getTiles() for wl in self._wall]) == FinishRoundResult.GAME_FINISHED:
             self.endGame()
             return FinishRoundResult.GAME_FINISHED
         
@@ -53,7 +54,7 @@ class Board:
             self._pattern_line[destinationIdx].put(tiles)
 
     def endGame(self) -> None:
-        self._points = Points.sum([FinalPointsCalculationInterface.getPoints(), self._points])
+        self._points = Points.sum([FinalPointsCalculation.calculate_points(), self._points])
 
     def state(self) -> str:
         """vypise kolko bodov ma dany hrac"""

@@ -11,6 +11,3 @@ t._floor.put([RED])
 
 t._floor.finish_round()
 print(t.used_tiles.state())
-
-
-# t.put(5, [Tile()])
