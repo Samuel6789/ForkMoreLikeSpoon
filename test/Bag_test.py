@@ -1,7 +1,7 @@
 from __future__ import annotations
 import unittest
-from Assignment.azul import Bag
-from Assignment.azul.simple_types import *
+from azul import Bag
+from azul.simple_types import *
 
 
 class MyTestCase(unittest.TestCase):
