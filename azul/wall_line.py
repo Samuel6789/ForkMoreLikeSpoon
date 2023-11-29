@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List, Optional
-from azul.simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
+from simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
     lineUp: WallLine
