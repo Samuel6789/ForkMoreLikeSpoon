@@ -25,7 +25,7 @@ class Bag:
         return out
     
     def refill(self) -> None:
-        self._tiles = self.used_tiles.give()
+        self._tiles = self.used_tiles.takeAll()
 
     def state(self) -> str:
         return f"zostava {len(self._tiles)}"

@@ -2,11 +2,13 @@ from bag import Bag
 from tileSources import TileSource, tableCenter
 from simple_types import Tile
 
+#niekde tu je mypy chyba
+
 class Factory(TileSource):
     def __init__(self, bag: Bag, table_center: tableCenter) -> None:
         self._bag = bag
         self.table_center = tableCenter
-        super.__init__()
+        super.__init__(super)
     
     def startNewRound(self) -> None:
         self.tiles = self._bag.take(4)

@@ -22,7 +22,7 @@ class ObserverInterface:
     '''perposiela observerom state z board-u'''
     def __init__(self) -> None:
         '''prepares GUI in a GUI implementation'''
-        self._observers: Set[str] = []
+        self._observers: Set[str] = set()
         pass
 
     def notify(self, newState:str) -> None:
@@ -33,7 +33,7 @@ class ObserverInterface:
         self._observers.add(name)
 
     def cancelObserver(self, name: str) -> None:
-        self._observers -= name
+        self._observers.remove(name)
 
 # class FinalPointsCalculationInterface:
 #     def getPoints(wall: List[List[Any]]) -> Points:
