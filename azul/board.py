@@ -1,29 +1,33 @@
 from typing import List
-from azul.simple_types import Points, Tile, STARTING_PLAYER
-import pattern_line
-import floor
+from simple_types import Points, Tile, STARTING_PLAYER
+from pattern_line import PatternLine
+from floor import Floor
 from interfaces import UsedTilesGiveInterface, FinalPointsCalculationInterface, FinishRoundResult
-import wall_line
+from wall_line import WallLine
 from game import Game
 from game_finished import gameFinished
+
 
 class Board:
     _points: Points = Points(0)
     _is_first: bool = False        # indicates 
-    _wall = [wall_line.WallLine([]) for i in range(5)]        # instancie wall line
-    _floor = floor.Floor([], UsedTilesGiveInterface)
+    _wall = [WallLine([]) for i in range(5)]        # instancie wall line
+    _floor = Floor([], UsedTilesGiveInterface)
     _player_name: str = ""
-    _pattern_line: List[pattern_line.PatternLine] = [pattern_line.PatternLine(i) for i in range(4)]
+    _pattern_line: List[PatternLine] = [PatternLine(i) for i in range(4)]
 
     def __init__(self, player_name: str = "") -> None:
         self._player_name = player_name
     
-    def finishRound(self):
+    def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
         for line in self._pattern_line:
             self._points = Points.sum(line.finishRound(), self._points)
 
-        if gameFinished() == FinishRoundResult.GAME_FINISHED:
+        minus_points = self._floor.finish_round()
+        self._points = Points.sum(minus_points, self._points)
+
+        if gameFinished([wl.getTiles() for wl in self._wall]) == FinishRoundResult.GAME_FINISHED:
             self.endGame()
             return FinishRoundResult.GAME_FINISHED
         
@@ -52,5 +56,3 @@ class Board:
     def state(self) -> str:
         """vypise kolko bodov ma dany hrac"""
         out = f"{self._player_name}: has number of points {str(self._points)}"
-    
-    

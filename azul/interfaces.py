@@ -1,12 +1,14 @@
 from __future__ import annotations
 from typing import List, Set, Any
-from azul.simple_types import Tile, Points
+from simple_types import Tile, Points
 from enum import Enum
+from usedTiles import usedTiles
+from game import Game
 
 
 class UsedTilesGiveInterface:
     def give(self, tiles: List[Tile]) -> None:
-        pass
+        Game.used_tiles.give(tiles)
 class GameInterface:
     ''''''
 
@@ -20,7 +22,7 @@ class ObserverInterface:
         self._observers: Set[str] = []
         pass
 
-    def notify(self, newState:str):
+    def notify(self, newState:str) -> None:
         '''in a GUI implementation this would pop up a window with a message'''
         print(f"new state is: {newState}")
 
