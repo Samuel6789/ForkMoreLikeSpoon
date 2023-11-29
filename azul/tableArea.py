@@ -7,7 +7,7 @@ class TableArea:
         self.tableCenter = tableCenter
         self.roundEnded = False
 
-    def take(self, sourceIdx: int, colour: str) -> List[Tile]:
+    def take(self, sourceIdx: int, colour: int) -> List[Tile]:
         if sourceIdx >= len(self.factories):
             raise ValueError("Invalid source index")
         
