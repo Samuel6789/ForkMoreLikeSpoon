@@ -7,10 +7,12 @@ class PatternLine:
         """0: [None], 1:[None, None], ..., 4:[None, None, None, None, None]"""
         self._line = [None for i in range(index + 1)]
 
-    def put(self, destinationIdx: int, tiles: List(Tile)):
+    def put(self, tiles: List(Tile)):
+        """ak sa nachadza STArting player, tak ho da do floor"""
         pass
+        
 
-    def finishRound() -> Points:
+    def finishRound(self) -> Points:
         pass
 
     def state() -> str:

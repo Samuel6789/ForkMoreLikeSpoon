@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import List, Set
-from azul.simple_types import Tile
+from typing import List, Set, Any
+from azul.simple_types import Tile, Points
+from enum import Enum
 
 
 class UsedTilesGiveInterface:
@@ -28,3 +29,13 @@ class ObserverInterface:
 
     def cancelObserver(self, name: str) -> None:
         self._observers -= name
+
+class FinalPointsCalculationInterface:
+    def getPoints(wall: List[List[Any]]) -> Points:
+        out: Points = Points(0)
+        ...     # TODO pri integracii sem pridat nazov funkcie z realnej classy
+        return out
+
+class FinishRoundResult(Enum):
+    NORMAL = True
+    GAME_FINISHED = False
