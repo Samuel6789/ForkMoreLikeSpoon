@@ -12,7 +12,7 @@ class Board:
     _points: Points = Points(0)
     _is_first: bool = False        # indicates 
     _wall = [WallLine([]) for i in range(5)]        # instancie wall line
-    _floor = Floor([], UsedTilesGiveInterface)
+    _floor = Floor([Points(i) for i in [-1, -1, -2, -2]], UsedTilesGiveInterface)
     _player_name: str = ""
     _pattern_line: List[PatternLine] = [PatternLine(i) for i in range(4)]
 
@@ -22,11 +22,11 @@ class Board:
     
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
-        for line in self._pattern_line:
-            self._points = Points.sum(line.finishRound(), self._points)
+        # for line in self._pattern_line:
+        #     self._points = Points.sum([line.finishRound(), self._points])
 
         minus_points = self._floor.finish_round()
-        self._points = Points.sum(minus_points, self._points)
+        self._points = Points.sum([minus_points, self._points])
 
         if gameFinished([wl.getTiles() for wl in self._wall]) == FinishRoundResult.GAME_FINISHED:
             self.endGame()
@@ -52,7 +52,7 @@ class Board:
             self._pattern_line[destinationIdx].put(tiles)
 
     def endGame(self) -> None:
-        self._points = Points.sum(FinalPointsCalculationInterface.getPoints(), self._points)
+        self._points = Points.sum([FinalPointsCalculationInterface.getPoints(), self._points])
 
     def state(self) -> str:
         """vypise kolko bodov ma dany hrac"""

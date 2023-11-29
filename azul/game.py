@@ -11,7 +11,6 @@ class Game:
     
     def __init__(self) -> None:
         self.bag = Bag(self.used_tiles)
-        # .used_tiles = usedTiles()
 
 
 

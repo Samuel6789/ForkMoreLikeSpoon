@@ -7,7 +7,7 @@ from usedTiles import usedTiles
 
 
 class UsedTilesGiveInterface:
-    used_tiles: usedTiles = None
+    used_tiles: usedTiles = usedTiles()
     def give(self, tiles: List[Tile]) -> None:
         self.used_tiles.give(tiles)
         
