@@ -3,12 +3,14 @@ from typing import List, Set, Any
 from simple_types import Tile, Points
 from enum import Enum
 from usedTiles import usedTiles
-from game import Game
+# from game import Game
 
 
 class UsedTilesGiveInterface:
+    used_tiles: usedTiles = None
     def give(self, tiles: List[Tile]) -> None:
-        Game.used_tiles.give(tiles)
+        self.used_tiles.give(tiles)
+        
 class GameInterface:
     ''''''
 

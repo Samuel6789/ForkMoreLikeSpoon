@@ -11,6 +11,10 @@ class TestBag(unittest.TestCase):
         for i in range(100):
             self.bag.take(1)
             self.assertEqual(self.bag.state(), f"zostava {100 - i - 1}")
+        
+        self.bag = Bag("gjh")
+        self.assertEqual(len(self.bag.take(4)), 4)
+
 
 if __name__ == '__main__':
     unittest.main()

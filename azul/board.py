@@ -16,8 +16,9 @@ class Board:
     _player_name: str = ""
     _pattern_line: List[PatternLine] = [PatternLine(i) for i in range(4)]
 
-    def __init__(self, player_name: str = "") -> None:
+    def __init__(self, used_tiles, player_name: str = "") -> None:
         self._player_name = player_name
+        self.used_tiles = used_tiles
     
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
