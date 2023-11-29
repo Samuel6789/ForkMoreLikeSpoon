@@ -1,16 +1,16 @@
 from __future__ import annotations
 from typing import List
 from itertools import chain, repeat, islice
-from interfaces import UsedTilesGiveInterface
+from usedTiles import usedTiles
 from simple_types import Tile, compress_tile_list, Points
 
 
 class Floor:
     _point_pattern: List[Points]
-    _used_tiles: UsedTilesGiveInterface
+    _used_tiles: usedTiles
     _tiles: List[Tile]
 
-    def __init__(self, point_pattern: List[Points], used_tiles: UsedTilesGiveInterface):
+    def __init__(self, point_pattern: List[Points], used_tiles: usedTiles):
         self._point_pattern = point_pattern.copy()
         self._used_tiles = used_tiles
         self._tiles = []

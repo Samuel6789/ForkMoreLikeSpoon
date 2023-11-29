@@ -2,9 +2,9 @@ from typing import List
 from simple_types import Points, Tile, STARTING_PLAYER
 from pattern_line import PatternLine
 from floor import Floor
-from interfaces import UsedTilesGiveInterface, FinalPointsCalculationInterface, FinishRoundResult
+from interfaces import FinalPointsCalculationInterface, FinishRoundResult#, UsedTilesGiveInterface
 from wall_line import WallLine
-from game import Game
+# from game import Game
 from game_finished import gameFinished
 
 
@@ -12,13 +12,14 @@ class Board:
     _points: Points = Points(0)
     _is_first: bool = False        # indicates 
     _wall = [WallLine([]) for i in range(5)]        # instancie wall line
-    _floor = Floor([Points(i) for i in [-1, -1, -2, -2]], UsedTilesGiveInterface)
+    
     _player_name: str = ""
     _pattern_line: List[PatternLine] = [PatternLine(i) for i in range(4)]
 
     def __init__(self, used_tiles, player_name: str = "") -> None:
         self._player_name = player_name
         self.used_tiles = used_tiles
+        self._floor = Floor([Points(i) for i in [1, 1, 2, 2]], used_tiles)
     
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''

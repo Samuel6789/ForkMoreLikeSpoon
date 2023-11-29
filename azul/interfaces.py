@@ -2,14 +2,15 @@ from __future__ import annotations
 from typing import List, Set, Any
 from simple_types import Tile, Points
 from enum import Enum
-from usedTiles import usedTiles
+# from usedTiles import usedTiles
 # from game import Game
 
 
-class UsedTilesGiveInterface:
-    used_tiles: usedTiles = usedTiles()
-    def give(self, tiles: List[Tile]) -> None:
-        self.used_tiles.give(tiles)
+# class UsedTilesGiveInterface:
+#     used_tiles: usedTiles = usedTiles()
+#     def give(self, tiles: List[Tile]) -> None:
+#         print("joooj zavolali ma!!!!!!!!!!!!!!!!!!1")
+#         self.used_tiles.give(tiles)
         
 class GameInterface:
     ''''''
