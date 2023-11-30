@@ -33,6 +33,10 @@ class tableCenter(TileSource):
 
     def add(self, tiles: list[Tile]) -> None:
         self.tiles += tiles
+        
+    def startNewRound(self) ->None:
+        self.tiles = [STARTING_PLAYER]
+    
     
     def take(self, colour: int) -> list[Tile]:  #RBYGL
         result: list[Tile] = []
