@@ -4,7 +4,6 @@ from patternLine import patternLine
 from floor import Floor
 from interfaces import FinishRoundResult
 from wallLine import WallLine
-# from game import Game
 from gameFinished import GameFinished
 from finalPointsCalculation import FinalPointsCalculation
 
