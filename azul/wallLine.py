@@ -9,7 +9,7 @@ class WallLine:
     _tilesInLine: List[Optional[Tile]]  #list of Tile and None for missing pattern tiles
 
     def __init__(self, tileTypesOrder: List[Tile],lineUp: WallLine = None, lineDown: WallLine = None,
-                 initialTiles: List[Tile] = list()):   #initialTiles for testing only
+                 initialTiles: List[Tile] = list()) -> None:   #initialTiles for testing only
         self._tileTypes = tileTypesOrder.copy()     #I assume correct input, no tests
         self.lineUp = lineUp
         self.lineDown = lineDown
