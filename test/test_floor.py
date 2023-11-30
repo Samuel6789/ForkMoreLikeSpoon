@@ -31,7 +31,7 @@ class TestFloor(unittest.TestCase):
         self.assertEqual(str(points), "7")
         self.assertCountEqual(tiles, self.used_tiles.tiles_given)
         self.assertCountEqual(self.floor.state(), "")
-        tiles2 = [RED, GREEN]
+        tiles2: List[Tile] = [RED, GREEN]
         self.floor.put(tiles2[0:1])
         self.assertCountEqual(self.floor.state(), "R")
         self.floor.put(tiles2[1:2])
