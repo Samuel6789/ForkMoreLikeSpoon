@@ -1,6 +1,5 @@
 from __future__ import annotations
-from typing import List
-from interfaces import UsedTilesGiveInterface
+from typing import List, Dict
 from simple_types import Tile, compress_tile_list, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class TileSource:
@@ -10,9 +9,9 @@ class TileSource:
     def isEmpty(self) -> bool:
         return (self.tiles == [])
     
-    def take(self, colour: int) -> list[Tile]:  #RBYGL
-        result: list[Tile] = []
-        mapColours: dict = {1 : "R", 2 : "B", 3 : "Y", 4 : "G", 5 : "L"}
+    def take(self, colour: int) -> List[Tile]:  #RBYGL
+        result: List[Tile] = []
+        mapColours: Dict[int, str] = {1 : "R", 2 : "B", 3 : "Y", 4 : "G", 5 : "L"}
         i: int = 0
         while i < len(self.tiles):
             if colour < 0: 
@@ -37,7 +36,7 @@ class tableCenter(TileSource):
     
     def take(self, colour: int) -> list[Tile]:  #RBYGL
         result: list[Tile] = []
-        mapColours: dict = {0 : "S", 1 : "R", 2 : "B", 3 : "Y", 4 : "G", 5 : "L"}
+        mapColours: Dict[int, str] = {0 : "S", 1 : "R", 2 : "B", 3 : "Y", 4 : "G", 5 : "L"}
         i: int = 0
         while i < len(self.tiles):
             if colour < 0: 
