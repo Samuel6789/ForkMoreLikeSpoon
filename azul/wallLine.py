@@ -3,8 +3,8 @@ from typing import List, Optional
 from azul.simple_types import Tile, Points, RED, BLUE, YELLOW, GREEN, BLACK, STARTING_PLAYER
 
 class WallLine:
-    lineUp: WallLine
-    lineDown: WallLine
+    lineUp: Optional[WallLine]
+    lineDown: Optional[WallLine]
     _tileTypes: List[Tile]  #order of patterns
     _tilesInLine: List[Optional[Tile]]  #list of Tile and None for missing pattern tiles
 
@@ -38,7 +38,7 @@ class WallLine:
                 break
             horizontalPoints += 1
         for offset in range(1, lineSize):
-            indexing: int = indexOfTyle + offset
+            indexing = indexOfTyle + offset
             if(indexing >= lineSize or self._tilesInLine[indexing] is None):
                 break
             horizontalPoints += 1
