@@ -10,7 +10,7 @@ class FinalPointsCalculation:
         colours_counter: Counter[Any] = Counter()
         for row in wall:
             colours_counter.update(row)
-            if len(list(filter(lambda x: x is not None, list(map(lambda x: str(x), row))))) == 5:
+            if len(list(map(lambda x: str(x), list(filter(lambda x: x is not None, row))))) == 5:
                 points += 2
         for column in zip(*wall):
             if len(list(filter(lambda x: x is not None, column))) == 5:
