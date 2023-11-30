@@ -10,3 +10,4 @@ folder test import template:
 from {azul.floor, azul.unsedTiles,...} import {Floor, unsedTiles,...}
 
 [rules of the game](https://www.wikihow.com/Play-Azul)
+[online game inspiration](https://azee.mattle.online/lobby/rooms)
