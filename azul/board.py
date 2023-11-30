@@ -33,6 +33,7 @@ class Board:
 
         self._pattern_line: List[patternLine] = [patternLine(i + 1 , self._floor, self.used_tiles, self._wall[i]) for i in range(5)]
         ##CHANGED THE CAPACITY OF PATTERNLINE WAS STARTING AT 0  
+    
     def finishRound(self) -> FinishRoundResult:
         '''zavola finish round z patternline a zapocita vratene body'''
         for line in self._pattern_line:
@@ -66,9 +67,10 @@ class Board:
             self._pattern_line[destinationIdx].put(tiles)
 
     def endGame(self) -> None:
+        """adds points from final points calulation """
         self._points = Points.sum([FinalPointsCalculation.calculate_points([x._tilesInLine for x in self._wall]), self._points])
         ##SHOULD THIS BE += ?
 
     def state(self) -> str:
-        """vypise kolko bodov ma dany hrac"""
+        """vypise kolko bodov ma dany hrac (player1: has number of points 42"""
         return f"{self._player_name}: has number of points {str(self._points)}"
